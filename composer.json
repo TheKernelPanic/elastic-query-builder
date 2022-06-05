@@ -1,0 +1,30 @@
+{
+  "name": "the-kernel-panic/elastic-query-builder",
+  "authors": [
+    {
+      "name": "Jorge García",
+      "email": "kernelpanic0x000007C4@protonmail.com",
+      "homepage": "https://www.youtube.com/channel/UCKnbl-SJdL9su95mu_HjAYQ",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
+  "type": "project",
+  "description": "",
+  "require": {
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "ElasticQueryBuilder\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ElasticQueryBuilder\\Tests\\": "tests/"
+    }
+  }
+}
