@@ -51,7 +51,7 @@ class GeoCoordinates implements GeoPoint, NormalizerInterface
             return [$this->longitude, $this->latitude];
         }
         return [
-            'lan' => $this->latitude,
+            'lat' => $this->latitude,
             'lon' => $this->longitude
         ];
     }
