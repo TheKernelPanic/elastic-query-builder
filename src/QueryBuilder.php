@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ElasticQueryBuilder;
 
 use ElasticQueryBuilder\Query\Query;
+use ElasticQueryBuilder\Sort\Sort;
 
 class QueryBuilder
 {
@@ -13,13 +14,30 @@ class QueryBuilder
     private array $mappingQuery;
 
     /**
+     * @var Sort[]
+     */
+    private array $sorts;
+
+    /**
      * @var array
      */
     private array $built;
 
     public function __construct()
     {
+        $this->sorts = [];
         $this->mappingQuery = [];
+    }
+
+    /**
+     * @param Sort $sort
+     * @return $this
+     */
+    public function sort(Sort $sort): self
+    {
+        $this->sorts[] = $sort;
+
+        return $this;
     }
 
     /**
@@ -38,10 +56,19 @@ class QueryBuilder
      */
     public function getDsl(): array
     {
-        $normalized = array();
+        $normalizeQueries = [];
         foreach ($this->mappingQuery as $query) {
-            $normalized[] = $query->normalize();
+            $normalizeQueries[] = $query->normalize();
         }
-        return array_merge_recursive(...$normalized);
+        $dsl = [
+            'query' => array_merge_recursive(...$normalizeQueries)
+        ];
+        if (count($this->sorts)) {
+            $dsl['sort'] = [];
+            foreach ($this->sorts as $sort) {
+                $dsl['sort'][] = $sort->normalize();
+            }
+        }
+        return $dsl;
     }
 }
