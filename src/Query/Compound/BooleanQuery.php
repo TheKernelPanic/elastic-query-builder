@@ -1,23 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ElasticQueryBuilder\Query\Compound\Bool;
+namespace ElasticQueryBuilder\Query\Compound;
 
 use ElasticQueryBuilder\Normalize\NormalizerInterface;
-use ElasticQueryBuilder\Query\Compound\CompoundQuery;
 use ElasticQueryBuilder\Query\Query;
-use function array_merge_recursive;
 
 class BooleanQuery extends CompoundQuery implements NormalizerInterface
 {
     private const IDENTIFIER = 'bool';
-
-    private string $occurrenceType;
-
-    /**
-     * @var Query[][]
-     */
-    private array $aggregate;
 
     /**
      * @var string
