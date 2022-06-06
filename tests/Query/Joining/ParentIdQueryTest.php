@@ -19,12 +19,12 @@ class ParentIdQueryTest extends TestCase
             '1'
         );
         $normalize = $query->normalize();
-        $this->assertArrayHasKey('type', $normalize);
-        $this->assertArrayHasKey('id', $normalize);
-        $this->assertArrayNotHasKey('ignore_unmapped', $normalize);
+        $this->assertArrayHasKey('type', $normalize['parent_id']);
+        $this->assertArrayHasKey('id', $normalize['parent_id']);
+        $this->assertArrayNotHasKey('ignore_unmapped', $normalize['parent_id']);
 
         $query->setIgnoreUnmapped(true);
         $normalize = $query->normalize();
-        $this->assertArrayHasKey('ignore_unmapped', $normalize);
+        $this->assertArrayHasKey('ignore_unmapped', $normalize['parent_id']);
     }
 }

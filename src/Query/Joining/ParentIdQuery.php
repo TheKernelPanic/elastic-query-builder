@@ -7,6 +7,8 @@ use ElasticQueryBuilder\Query\Query;
 
 class ParentIdQuery extends Query
 {
+    private const IDENTIFIER = 'parent_id';
+
     /**
      * Name of the child relationship mapped for the join field.
      * @var string
@@ -40,10 +42,12 @@ class ParentIdQuery extends Query
     public function normalize(): array
     {
         $normalize = [
-            'type' => $this->type,
-            'id' => $this->id
+            self::IDENTIFIER => [
+                'type' => $this->type,
+                'id' => $this->id
+            ]
         ];
-        !isset($this->ignoreUnmapped) || ($normalize['ignore_unmapped'] = $this->ignoreUnmapped);
+        !isset($this->ignoreUnmapped) || ($normalize[self::IDENTIFIER]['ignore_unmapped'] = $this->ignoreUnmapped);
 
         return $normalize;
     }

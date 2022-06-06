@@ -7,6 +7,8 @@ use ElasticQueryBuilder\Query\Query;
 
 class NestedQuery extends Query
 {
+    private const IDENTIFIER = 'nested';
+
     public const SCORE_MODE_AVG = 'avg';
     public const SCORE_MODE_MAX = 'max';
     public const SCORE_MODE_MIN = 'min';
@@ -55,14 +57,16 @@ class NestedQuery extends Query
      */
     public function normalize(): array
     {
-        return [
-            'nested' => [
+        $normalize = [
+            self::IDENTIFIER => [
                 'path' => $this->path,
-                'query' => $this->query->normalize(),
-                'score_mode' => $this->scoreMode,
-                'ignore_unmapped' => $this->ignoreUnmapped
+                'query' => $this->query->normalize()
             ]
         ];
+        !isset($this->scoreMode) || ($normalize[self::IDENTIFIER]['score_mode'] = $this->scoreMode);
+        !isset($this->ignoreUnmapped) || ($normalize[self::IDENTIFIER]['ignore_unmapped'] = $this->ignoreUnmapped);
+
+        return $normalize;
     }
 
     /**
