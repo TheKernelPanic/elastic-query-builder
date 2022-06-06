@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace ElasticQueryBuilder\Tests\Value;
 
-use ElasticQueryBuilder\Value\TimeUnit;
+use ElasticQueryBuilder\Conventions\TimeUnit;
 use PHPUnit\Framework\TestCase;
 
 class TimeUnitTest extends TestCase
 {
     /**
-     * @covers \ElasticQueryBuilder\Value\TimeUnit::minutes
+     * @covers \ElasticQueryBuilder\Conventions\TimeUnit::minutes
      * @return void
      */
     public function testMinutes(): void
