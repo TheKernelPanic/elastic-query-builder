@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ElasticQueryBuilder\Value;
+namespace ElasticQueryBuilder\Conventions;
 
 /**
  * @doc https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#time-units
