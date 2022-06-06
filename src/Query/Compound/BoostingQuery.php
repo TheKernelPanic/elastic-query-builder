@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ElasticQueryBuilder\Query\Compound\Boost;
+namespace ElasticQueryBuilder\Query\Compound;
 
-use ElasticQueryBuilder\Query\Compound\CompoundQuery;
+use ElasticQueryBuilder\Exception\InvalidParameterException;
 use ElasticQueryBuilder\Query\Query;
-use http\Exception\InvalidArgumentException;
 
 class BoostingQuery extends CompoundQuery
 {
@@ -28,6 +27,7 @@ class BoostingQuery extends CompoundQuery
      * @param Query $negative
      * @param Query $positive
      * @param float $negativeBoost
+     * @throws InvalidParameterException
      */
     public function __construct(Query $negative, Query $positive, float $negativeBoost)
     {
@@ -35,7 +35,7 @@ class BoostingQuery extends CompoundQuery
         $this->positive = $positive;
 
         if ($negativeBoost > 1 || $negativeBoost < 0) {
-            throw new InvalidArgumentException('Negative boost must be a number between 0 and 1.0.');
+            throw new InvalidParameterException('Negative boost must be a number between 0 and 1.0.');
         }
         $this->negativeBoost = $negativeBoost;
     }
