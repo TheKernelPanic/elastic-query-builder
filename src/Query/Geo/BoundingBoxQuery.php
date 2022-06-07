@@ -42,7 +42,7 @@ class BoundingBoxQuery extends Query
     }
 
     /**
-     * @return array|array[]
+     * @return array
      */
     public function normalize(): array
     {

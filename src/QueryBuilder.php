@@ -5,13 +5,14 @@ namespace ElasticQueryBuilder;
 
 use ElasticQueryBuilder\Query\Query;
 use ElasticQueryBuilder\Sort\Sort;
+use function is_null;
 
 class QueryBuilder
 {
     /**
-     * @var array
+     * @var Query
      */
-    private array $mappingQuery;
+    private Query $query;
 
     /**
      * @var Sort[]
@@ -23,10 +24,17 @@ class QueryBuilder
      */
     private array $built;
 
+    /**
+     * @var int|null
+     */
+    private ?int $size;
+
+    private
+
     public function __construct()
     {
         $this->sorts = [];
-        $this->mappingQuery = [];
+        $this->size = null;
     }
 
     /**
@@ -44,9 +52,9 @@ class QueryBuilder
      * @param Query $query
      * @return $this
      */
-    public function add(Query $query): self
+    public function setQuery(Query $query): self
     {
-        $this->mappingQuery[] = $query;
+        $this->query = $query;
 
         return $this;
     }
@@ -56,12 +64,8 @@ class QueryBuilder
      */
     public function getDsl(): array
     {
-        $normalizeQueries = [];
-        foreach ($this->mappingQuery as $query) {
-            $normalizeQueries[] = $query->normalize();
-        }
         $dsl = [
-            'query' => array_merge_recursive(...$normalizeQueries)
+            'query' => $this->query->normalize()
         ];
         if (count($this->sorts)) {
             $dsl['sort'] = [];
@@ -69,6 +73,19 @@ class QueryBuilder
                 $dsl['sort'][] = $sort->normalize();
             }
         }
+        !is_null($this->size) || $dsl['size'] = $this->size;
+
         return $dsl;
+    }
+
+    /**
+     * @param int|null $size
+     * @return $this
+     */
+    public function setSize(?int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
     }
 }
