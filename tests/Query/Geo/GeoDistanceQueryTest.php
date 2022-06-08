@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace ElasticQueryBuilder\Tests\Query\Geo;
 
-use ElasticQueryBuilder\Query\Geo\DistanceQuery;
+use ElasticQueryBuilder\Query\Geo\GeoDistanceQuery;
 use ElasticQueryBuilder\Types\GeoCoordinates;
 use PHPUnit\Framework\TestCase;
 
-class DistanceQueryTest extends TestCase
+class GeoDistanceQueryTest extends TestCase
 {
     /**
-     * @covers \ElasticQueryBuilder\Query\Geo\DistanceQuery
+     * @covers \ElasticQueryBuilder\Query\Geo\GeoDistanceQuery
      * @return void
      */
     public function testNormalize(): void
     {
-        $query = new DistanceQuery(
+        $query = new GeoDistanceQuery(
             'foo',
             '1000m',
             new GeoCoordinates(

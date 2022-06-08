@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ElasticQueryBuilder;
 
+use ElasticQueryBuilder\Aggregation\Aggregation;
+use ElasticQueryBuilder\Collapse\Collapse;
 use ElasticQueryBuilder\Query\Query;
 use ElasticQueryBuilder\Sort\Sort;
 use function is_null;
@@ -20,17 +22,28 @@ class QueryBuilder
     private array $sorts;
 
     /**
-     * @var array
-     */
-    private array $built;
-
-    /**
      * @var int|null
      */
     private ?int $size;
 
-    private
+    /**
+     * @var Aggregation[]
+     */
+    private array $aggregations;
 
+    /**
+     * @var float
+     */
+    private float $minimumScore;
+
+    /**
+     * @var Collapse
+     */
+    private Collapse $collapse;
+
+    /**
+     *
+     */
     public function __construct()
     {
         $this->sorts = [];
@@ -52,7 +65,7 @@ class QueryBuilder
      * @param Query $query
      * @return $this
      */
-    public function setQuery(Query $query): self
+    public function query(Query $query): self
     {
         $this->query = $query;
 
@@ -73,7 +86,7 @@ class QueryBuilder
                 $dsl['sort'][] = $sort->normalize();
             }
         }
-        !is_null($this->size) || $dsl['size'] = $this->size;
+        is_null($this->size) || ($dsl['size'] = $this->size);
 
         return $dsl;
     }
@@ -85,6 +98,39 @@ class QueryBuilder
     public function setSize(?int $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * @param Aggregation $aggregation
+     * @return $this
+     */
+    public function aggregation(Aggregation $aggregation): self
+    {
+        $this->aggregations[] = $aggregation;
+
+        return $this;
+    }
+
+    /**
+     * @param float $score
+     * @return $this
+     */
+    public function minimumScore(float $score): self
+    {
+        $this->minimumScore = $score;
+
+        return $this;
+    }
+
+    /**
+     * @param Collapse $collapse
+     * @return $this
+     */
+    public function collapse(Collapse $collapse): self
+    {
+        $this->collapse = $collapse;
 
         return $this;
     }

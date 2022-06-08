@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace ElasticQueryBuilder\Tests\Query\Geo;
+namespace ElasticQueryBuilder\Tests\Aggregation\Metric;
 
 use PHPUnit\Framework\TestCase;
 
-class GeoBoundingBoxQueryTest extends TestCase
+class AverageAggregationTest extends TestCase
 {
     /**
-     * @covers \ElasticQueryBuilder\Query\Geo\GeoBoundingBoxQuery
+     * @covers \ElasticQueryBuilder\Aggregation\Metric\AverageAggregation
      * @return void
      */
     public function testNormalize(): void
