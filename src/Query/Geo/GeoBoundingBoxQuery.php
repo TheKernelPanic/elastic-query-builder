@@ -6,7 +6,7 @@ namespace ElasticQueryBuilder\Query\Geo;
 use ElasticQueryBuilder\Query\Query;
 use ElasticQueryBuilder\Types\GeoPoint;
 
-class BoundingBoxQuery extends Query
+class GeoBoundingBoxQuery extends Query
 {
     private const IDENTIFIER = 'geo_bounding_box';
 

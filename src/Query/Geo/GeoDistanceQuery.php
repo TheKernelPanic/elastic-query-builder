@@ -6,7 +6,7 @@ namespace ElasticQueryBuilder\Query\Geo;
 use ElasticQueryBuilder\Query\Query;
 use ElasticQueryBuilder\Types\GeoPoint;
 
-class DistanceQuery extends Query
+class GeoDistanceQuery extends Query
 {
     private const IDENTIFIER = 'geo_distance';
 
