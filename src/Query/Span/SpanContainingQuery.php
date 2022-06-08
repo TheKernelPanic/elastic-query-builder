@@ -5,7 +5,7 @@ namespace ElasticQueryBuilder\Query\Span;
 
 use ElasticQueryBuilder\Normalize\NormalizerInterface;
 
-class ContainingQuery extends SpanQuery
+class SpanContainingQuery extends SpanQuery
 {
     private const IDENTIFIER = 'span_containing';
 

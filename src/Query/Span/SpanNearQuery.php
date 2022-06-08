@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ElasticQueryBuilder\Query\Span;
 
-class NearQuery extends SpanQuery
+class SpanNearQuery extends SpanQuery
 {
     private const IDENTIFIER = 'span_near';
 
