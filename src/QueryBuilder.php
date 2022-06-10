@@ -32,22 +32,28 @@ class QueryBuilder
     private array $aggregations;
 
     /**
-     * @var float
-     */
-    private float $minimumScore;
-
-    /**
      * @var Collapse
      */
     private Collapse $collapse;
 
     /**
-     *
+     * @var QueryParameters
      */
+    private QueryParameters $parameters;
+
     public function __construct()
     {
         $this->sorts = [];
         $this->size = null;
+        $this->parameters = new QueryParameters();
+    }
+
+    /**
+     * @return QueryParameters
+     */
+    public function getParameters(): QueryParameters
+    {
+        return $this->parameters;
     }
 
     /**
@@ -88,6 +94,8 @@ class QueryBuilder
         }
         is_null($this->size) || ($dsl['size'] = $this->size);
 
+        $dsl = array_merge_recursive($dsl, $this->parameters->normalize());
+
         return $dsl;
     }
 
@@ -109,17 +117,6 @@ class QueryBuilder
     public function aggregation(Aggregation $aggregation): self
     {
         $this->aggregations[] = $aggregation;
-
-        return $this;
-    }
-
-    /**
-     * @param float $score
-     * @return $this
-     */
-    public function minimumScore(float $score): self
-    {
-        $this->minimumScore = $score;
 
         return $this;
     }

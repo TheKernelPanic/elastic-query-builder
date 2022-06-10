@@ -50,15 +50,9 @@ class CombinedFieldsQuery extends Query
     /**
      * @param array $fields
      * @param mixed $value
-     * @throws InvalidParameterException
      */
-    public function __construct(array $fields, mixed $value)
+    public function __construct(array $fields, string $value)
     {
-        array_walk($fields, static function(mixed $element) {
-            if (!is_string($element)) {
-                throw new InvalidParameterException('Fields must be an list of strings');
-            }
-        });
         $this->fields = $fields;
         $this->value = $value;
     }
@@ -85,13 +79,9 @@ class CombinedFieldsQuery extends Query
     /**
      * @param string $operator
      * @return void
-     * @throws InvalidParameterException
      */
     public function setOperator(string $operator): void
     {
-        if ($operator !== self::OR || $operator !== self::AND) {
-            throw new InvalidParameterException('Operators allowed {and, or}');
-        }
         $this->operator = $operator;
     }
 
